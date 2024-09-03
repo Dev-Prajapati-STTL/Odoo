@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="cafe_product_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Product Report</h2>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Product Code</th>
+                                    <th>Product Image</th>
+                                    <th>Cost Price</th>
+                                    <th>Sale Price</th>
+                                    <th>GPM</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o" t-as="product">
+                                    <tr>
+                                        <td>
+                                            <h1 t-field="product.product_name" />
+                                        </td>
+                                        <td>
+                                            <h2 t-out="product.product_code" />
+                                        </td>
+                                        <td>
+                                            <img widget='image' t-if="product.product_image"
+                                                t-att-src="image_data_uri(product.product_image)"
+                                                style="width: 50px; height: 50px;" alt='fake image' />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-out="product.cost_price" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="product.sale_price" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="product.gpm" />
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="cafe_sale_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+                            .table-custom {
+                                width: 100%;
+                                border-collapse: collapse;
+                            }
+                            .table-custom th, .table-custom td {
+                                border: 1px solid #ddd;
+                                padding: 8px;
+                            }
+                            .table-custom th {
+                                background-color: #f2f2f2;
+                            }
+                        </style>
+                        <h1>
+                            <t t-esc='o.order_number' />
+                        </h1>
+                        <h5>
+                            <t t-esc='o.date' />
+                        </h5>
+                        <br />
+                        <h3>
+                            <t t-esc='o.customer_id.name' />
+                        </h3>
+                        <img widget='image' t-if="o.customer_id.avatar_1920"
+                            t-att-src="image_data_uri(o.customer_id.avatar_1920)"
+                            style="width: 100px; height: 100px;" alt='fake image' />
+                        <br />
+                        <br />
+                        <br />
+                        <h4 style="font-weight:bolder;">Order Lines</h4>
+                        <table class="table-custom">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Unit Price</th>
+                                    <th>Quantity</th>
+                                    <th>Sub Total</th>
+                                    <th>Taxes</th>
+                                    <th>Tax Amt.</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.order_line_ids" t-as="ol">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="ol.product_id.product_name" />
+                                        </td>
+                                        <td>
+                                            <t t-esc="ol.price" />
+                                        </td>
+                                        <td>
+                                            <t t-esc="ol.quantity" />
+                                        </td>
+                                        <td>
+                                            <t t-esc="ol.sub_total" />
+                                        </td>
+                                        <td>
+                                            <t t-foreach="ol.taxes" t-as="tax">
+                                                <t t-esc="tax.tax_name" />, </t>
+                                        </td>
+                                        <td>
+                                            <t t-esc="ol.tax_amount" />
+                                        </td>
+                                        <td>
+                                            <t t-esc="ol.total" />
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <br />
+                        <br />
+                        <br />
+                        <h4 style="font-weight:bolder;">Tax Lines</h4>
+                        <table class="table-custom">
+                            <thead>
+                                <tr>
+                                    <th>Tax Name</th>
+                                    <th>Untaxed Amt.</th>
+                                    <th>Tax Percent</th>
+                                    <th>Tax Amt.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.tax_line_ids" t-as="tl">
+                                    <tr>
+                                        <td class="text-right">
+                                            <t t-esc="tl.tax_id.tax_name" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="tl.base_price" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="tl.percentage" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="tl.tax_amount" />
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <br />
+                        <br />
+                        <h4 style="font-weight:bolder;">Calculations</h4>
+                        <br />
+                        <h5 style="font-weight:bolder;">Untaxed Amount: <t
+                                t-esc="o.untaxed_amount"
+                                class="text-right"
+                                style="font-style:italic;text-align:right;" /></h5>
+                        <h5 style="font-weight:bolder;">Tax Amount: <t
+                                t-esc="o.tax_amount"
+                                class="text-right"
+                                style="font-style:italic;text-align:right;" /></h5>
+                        <h5 style="font-weight:bolder;">Total Amount: <t
+                                t-esc="o.total_amount"
+                                class="text-right"
+                                style="font-style:italic;text-align:right;" /></h5>
+                        <!-- <table class="table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <h5 style="font-weight:bolder;">Untaxed Amount:</h5>
+                                    </td>
+                                    <td>
+                                        <t
+                                            t-esc="o.untaxed_amount"
+                                            class="text-right"
+                                            style="font-style:italic;text-align:right;" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5 style="font-weight:bolder;">Tax Amount:</h5>
+                                    </td>
+                                    <td>
+                                        <t
+                                            t-esc="o.tax_amount"
+                                            class="text-right"
+                                            style="font-style:italic;text-align:right;" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5 style="font-weight:bolder;">Total Amount:</h5>
+                                    </td>
+                                    <td>
+                                        <t
+                                            t-esc="o.total_amount"
+                                            class="text-right"
+                                            style="font-style:italic;text-align:right;" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table> -->
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

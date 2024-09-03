@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hospital_patient_view_form" model="ir.ui.view">
+        <field name="name">hospital.patient.form</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <form string="hospital_patient_form">
+                <sheet>
+                    <group>
+                        <field name="name" tracking="True" />
+                        <field name="sequence_no" force_save="True" />
+                        <field name="age" tracking="True" />
+                        <field name="is_child" tracking="True" />
+                        <field name="gender" tracking="True" />
+                        <field name="notes" tracking="True" />
+                        <field name="eligible_for_voting" tracking="True" force_save="True" />
+                        <field name="years_until_retirement" tracking="True" force_save="True" />
+                    </group>
+                    <group>
+                        <field name="code_name_age_gender" force_save="True" />                        
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"
+                        options="{'post_refresh': 'recipients'}" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="hospital_patient_view_tree" model="ir.ui.view">
+        <field name="name">hospital.patient.tree</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <tree string="hospital_patient_tree">
+                <field name="name" />
+                <field name="age" />
+                <field name="gender" />
+                <field name="sequence_no" />
+                <field name="is_child" />
+                <field name="notes" />
+                <field name="eligible_for_voting" groups="Hospital.hospital_group_doctor"/>
+                <field name="years_until_retirement" />
+                <field name="code_name_age_gender" groups="Hospital.hospital_group_doctor"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hospital_patient_view_graph" model="ir.ui.view">
+        <field name="name">hospital_patient.view.graph</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <graph string="Graph" type="bar">
+                <field name="name" />
+                <field name="years_until_retirement" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+</odoo>

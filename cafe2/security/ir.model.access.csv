@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+cafe2.access_cafe2_product_attribute,access_cafe2_product_attribute,cafe2.model_cafe2_product_attribute,base.group_user,1,1,1,1
+cafe2.access_cafe2_product_attribute_value,access_cafe2_product_attribute_value,cafe2.model_cafe2_product_attribute_value,base.group_user,1,1,1,1
+cafe2.access_cafe2_product_attributes,access_cafe2_product_attributes,cafe2.model_cafe2_product_attributes,base.group_user,1,1,1,1
+cafe2.access_cafe2_order_line,access_cafe2_order_line,cafe2.model_cafe2_order_line,base.group_user,1,1,1,1
+cafe2.access_cafe2_product_variant,access_cafe2_product_variant,cafe2.model_cafe2_product_variant,base.group_user,1,1,1,1

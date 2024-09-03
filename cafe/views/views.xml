@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="cafe_products_list" model="ir.ui.view">
+            <field name="name">cafe.products.list</field>
+            <field name="model">cafe.products</field>
+            <field name="arch" type="xml">
+                <tree string="cafe_products_list_tree" editable='top'>
+                    <field name="product_name" />
+                    <field name="product_code" />
+                    <field name="cost_price" />
+                    <field name="sale_price" />
+                    <field name="product_image" widget='image' options="{'size': [100, 100]}" />
+                    <field name="gpm" />
+                    <field name="tags" widget="many2many_tags" options="{'color_field':'tag_color'}" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="cafe_products_search" model="ir.ui.view">
+            <field name="name">cafe.products.search</field>
+            <field name="model">cafe.products</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="product_name" string="Name" />
+                    <field name="tags" string="Tags" />
+                    <filter name="gt_20" domain="[('cost_price','>=','20')]" />
+                </search>
+            </field>
+        </record>
+
+        <record id="cafe_products_form" model="ir.ui.view">
+            <field name="name">cafe.products.form</field>
+            <field name="model">cafe.products</field>
+            <field name="arch" type="xml">
+                <form string="cafe_products_list_form">
+                    <header>
+                        <button name="action_print_report" type="object" string="Print Report"
+                            class="oe_highlight" />
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="product_name" class="cafe-bold-title" />
+                                <field name="product_code" />
+                                <field name="product_image" widget='image' class="oe_avatar" />
+                            </group>
+                            <group>
+                                <field name="cost_price" />
+                                <field name="sale_price" />
+                                <field name="gpm" />
+                                <field name="tags" widget="many2many_tags"
+                                    options="{'color_field':'tag_color'}" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="cafe_products_form_2" model="ir.ui.view">
+            <field name="name">cafe_products.view.form</field>
+            <field name="model">cafe.products</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="product_name" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="cafe_products_kanban" model="ir.ui.view">
+            <field name="name">cafe.products.kanban</field>
+            <field name="model">cafe.products</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="product_name" on_create="quick_create"
+                    quick_create_view="cafe.cafe_products_form">
+                    <field name="id" />
+                    <field name="product_name" />
+                    <field name="product_code" />
+                    <field name="cost_price" />
+                    <field name="sale_price" />
+                    <field name="gpm" />
+                    <field name="tags" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="o_kanban_card">
+                                <div class="o_kanban_image pe-0 me-0">
+                                    <img class="o_kanban_image_inner_picture"
+                                        t-att-src="kanban_image('cafe.products','product_image',record.id.value)"
+                                        alt="Product Image" />
+                                </div>
+                                <div class="o_kanban_details ms-1">
+                                    <span>
+                                        <strong>
+                                            <field name="product_name" class="cafe-bold-title" />
+                                            <span>
+                                                <field name="tags" widget="many2many_tags"
+                                                    options="{'color_field':'tag_color'}" />
+                                            </span>
+                                        </strong>
+                                    </span>
+                                    <div>
+                                        <span>Code: <field name="product_code" />
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span>Cost Price: <field name="cost_price" />
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span>Sale Price: <field name="sale_price" />
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span>GPM: <field name="gpm" />
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="cafe_sales_search" model="ir.ui.view">
+            <field name="name">cafe.sales.search</field>
+            <field name="model">cafe.sales</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="customer_id" string="Responsible" />
+                    <field name="date" string="Order Date" />
+                    <field name="state" string="Order State" />
+
+                    <filter name="Confirmed Orders" domain="[('state','=','confirmed')]" />
+                    <separator />
+                    <filter name="Draft Orders" domain="[('state','=','draft')]" />
+
+                    <group>
+                        <filter string="Customer" name="group by customer"
+                            context="{'group_by': 'customer_id'}" />
+                        <filter string="State" name="group by state" context="{'group_by': 'state'}" />
+                        <filter string="Date" name="group by date" context="{'group_by': 'date'}" />
+                    </group>
+
+                    <searchpanel>
+                        <field name="state" icon="fa-users" enable_counters="1" />
+                    </searchpanel>
+
+                </search>
+            </field>
+        </record>
+
+        <record id="cafe_sales_list" model="ir.ui.view">
+            <field name="name">cafe.sales.list</field>
+            <field name="model">cafe.sales</field>
+            <field name="arch" type="xml">
+                <tree string="cafe_sales_list_tree"
+                    decoration-success="state == 'done'"
+                    decoration-warning="state == 'draft' or state == 'rvrt'"
+                    decoration-muted="state == 'canceled'"
+                    decoration-info="state == 'confirmed'">
+                    <field name="customer_id" />
+                    <field name="order_number" />
+                    <field name="date" />
+                    <field name="state"
+                        widget='badge'
+                        decoration-success="state == 'done'"
+                        decoration-warning="state == 'draft' or state == 'rvrt'"
+                        decoration-muted="state == 'canceled'"
+                        decoration-info="state == 'confirmed'" />
+                    <field name="untaxed_amount" optional='hide' />
+                    <field name="tax_amount" optional='hide' />
+                    <field name="total_amount" optional='hide' />
+                </tree>
+            </field>
+        </record>
+
+        <record id="cafe_sales_form" model="ir.ui.view">
+            <field name="name">cafe.sales.form</field>
+            <field name="model">cafe.sales</field>
+            <field name="arch" type="xml">
+                <form string="Cafe Form">
+                    <header>
+                        <button name="action_confirm" type="object" string="Confirm" states="draft"
+                            class="oe_highlight" />
+                        <button name="action_done" type="object" string="Done" states="confirmed"
+                            class="oe_highlight" />
+                        <button name="action_cancel" type="object" string="Cancel"
+                            states="draft,confirmed" />
+                        <button name="action_draft" type="object" string="Revert to Draft"
+                            states="canceled" />
+                        <field name="state" widget="statusbar"
+                            statusbar_visible="draft,confirmed,canceled,rvrt" />
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="customer_id"
+                                attrs="{'readonly':[('state', '!=', 'draft')]}" />
+                            <field name="date" attrs="{'readonly':[('state', '!=', 'draft')]}" />
+                            <field name="state" readonly="1" style="color: red;"/>
+                            <field name="order_line_ids"
+                                attrs="{'readonly':[('state', '!=', 'draft')]}">
+                                <tree editable="inline">
+                                    <field name="product_id" />
+                                    <field name="quantity" />
+                                    <field name="price" />
+                                    <field name="sub_total" />
+                                    <field name="taxes" widget="many2many_tags" />
+                                    <field name="tax_amount" />
+                                    <field name="total" />
+                                </tree>
+                            </field>
+                            <field name="tax_line_ids" readonly="1" />
+                            <field name="untaxed_amount" readonly="1" class="text-success"/>
+                            <field name="tax_amount" readonly="1" />
+                            <field name="total_amount" readonly="1" />
+                            <field name="color" widget="color_picker" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="cafe_sales_calendar" model="ir.ui.view">
+            <field name="name">cafe.sales.calendar</field>
+            <field name="model">cafe.sales</field>
+            <field name="arch" type="xml">
+                <calendar string="Sales Orders" date_start="date" mode="month" color="state"
+                    event_limit="3" quick_add="False">
+                    <field name="customer_id" />
+                    <field name="order_number" />
+                    <field name="date" />
+                    <field name="state" />
+                    <field name="untaxed_amount" />
+                    <field name="tax_amount" />
+                    <field name="total_amount" />
+                </calendar>
+            </field>
+        </record>
+
+        <record id="cafe_sales_graph" model="ir.ui.view">
+            <field name="name">cafe.sales.graph</field>
+            <field name="model">cafe.sales</field>
+            <field name="arch" type="xml">
+                <graph string="Sales Orders" type="bar" stacked="False">
+                    <field name="customer_id" type="row" />
+                    <field name="date" interval="day" type="row" />
+                    <field name="total_amount" type="measure" />
+                </graph>
+            </field>
+        </record>
+
+        <record id="cafe_sales_pivot" model="ir.ui.view">
+            <field name="name">cafe.sales.pivot</field>
+            <field name="model">cafe.sales</field>
+            <field name="arch" type="xml">
+                <pivot string="Sales">
+                    <!-- <field name="date" type="row" interval="year" /> -->
+                    <field name="date" type="row" interval="quarter" />
+                    <field name="date" type="row" interval="month" />
+                    <!-- <field name="date" type="row" interval="day" /> -->
+                    <field name="customer_id" string="Responsible" type="col" />
+                    <field name="untaxed_amount" string="Untaxed Amount" type="col" />
+                    <field name="tax_amount" string="Tax Amount" type="col" />
+                    <field name="total_amount" string="Total" type="col" />
+
+                    <!-- <field name="customer_id" type="row" />
+
+                    <field name="date" type="col" interval="month" />
+
+                    <field name="total_amount" type="measure" />
+                    <field name="tax_amount" type="measure" /> -->
+                </pivot>
+            </field>
+        </record>
+
+        <record id="cafe_sales_kanban" model="ir.ui.view">
+            <field name="name">cafe.sales.kanban</field>
+            <field name="model">cafe.sales</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="customer_id" on_create="quick_create"
+                    quick_create_view="cafe.cafe_sales_form">
+                    <field name="id" />
+                    <field name="order_number" />
+                    <field name="customer_id" />
+                    <field name="date" />
+                    <field name="state" />
+                    <field name="total_amount" />
+                    <field name="color" />
+                    <templates>
+                        <t t-name="kanban-box" editable="true">
+                            <div
+                                t-attf-class="#{kanban_color(record.color.raw_value)}">
+                                <div class="o_kanban_image me-3">
+                                    <img
+                                        t-att-src="kanban_image('res.partner', 'image_1920', record.customer_id.raw_value)"
+                                        style="height:75pt;width:60pt" />
+                                </div>
+                                <div class="o_dropdown_kanban dropdown">
+                                    <a class="dropdown-toggle">
+                                        <span class="fa fa-ellipsis-v" />
+                                    </a>
+                                    <div class="dropdown-menu" role="menu">
+                                        <t t-if="widget.editable">
+                                            <a role="menuitem" type="edit" class="dropdown-item">
+                                                Edit</a>
+                                        </t>
+                                        <!-- <a role="menuitem" type="view" class="dropdown-item"
+                                        t-attf-href="/web#id=#{record.id.raw_value}&view_type=form&model=cafe.sales&menu_id=YOUR_MENU_ID">View
+                                        Order Lines</a> -->
+                                        <ul class="oe_kanban_colorpicker" data-field="color" />
+                                    </div>
+                                </div>
+                                <div class="o_kanban_details ms-1">
+                                    <span>
+                                        <strong>
+                                            <field name="order_number" class="cafe-bold-title" />
+                                        </strong>
+                                    </span>
+                                    <div>
+                                        <span>
+                                            <field name="state" widget="badge"
+                                                decoration-success="state == 'done'"
+                                                decoration-warning="state == 'draft'"
+                                                decoration-muted="state == 'canceled'"
+                                                decoration-info="state == 'confirmed'" />
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <field name="customer_name"
+                                                class="cafe-bold-title" />
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <field name="date" />
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <field name="total_amount" />
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="cafe_taxes_list" model="ir.ui.view">
+            <field name="name">Taxes</field>
+            <field name="model">cafe.taxes</field>
+            <field name="arch" type="xml">
+                <tree string="cafe_taxes_list_tree" delete="0">
+                    <field name="tax_name" />
+                    <field name="tax_code" />
+                    <field name="tax_percent" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="cafe_order_lines_list" model="ir.ui.view">
+            <field name="name">Orderlines</field>
+            <field name="model">cafe.order.line</field>
+            <field name="arch" type="xml">
+                <tree string="cafe_order_line_tree">
+                    <field name="product_id" />
+                    <field name="sale_id" />
+                    <field name="quantity" />
+                    <field name="price" />
+                    <field name="sub_total" />
+                    <field name="taxes" widget="many2many_tags" />
+                    <field name="tax_amount" />
+                    <field name="total" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="cafe_order_lines_form" model="ir.ui.view">
+            <field name="name">Order Lines</field>
+            <field name="model">cafe.order.line</field>
+            <field name="arch" type="xml">
+                <form string="cafe_order_lines_form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="product_id" />
+                                <field name="quantity" />
+                                <field name="price" readonly="1" />
+                            </group>
+                            <group>
+                                <field name="sub_total" />
+                                <field name="taxes" widget="many2many_tags" />
+                                <field name="tax_amount" />
+                                <field name="total" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_cafe_tax_line_tree" model="ir.ui.view">
+            <field name="name">cafe.tax.line.tree</field>
+            <field name="model">cafe.tax.line</field>
+            <field name="arch" type="xml">
+                <tree string="Tax Lines">
+                    <field name="tax_id" />
+                    <field name="base_price" />
+                    <field name="percentage" />
+                    <field name="tax_amount" />
+                </tree>
+            </field>
+        </record>
+
+        <!--        <record id="view_cafe_tax_line_form" model="ir.ui.view">-->
+        <!--            <field name="name">cafe.tax.line.form</field>-->
+        <!--            <field name="model">cafe.tax.line</field>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <form string="Tax Line">-->
+        <!--                    <sheet>-->
+        <!--                        <group>-->
+        <!--                            <field name="sale_id"/>-->
+        <!--                            <field name="tax_id"/>-->
+        <!--                            <field name="base_price"/>-->
+        <!--                            <field name="percentage"/>-->
+        <!--                            <field name="tax_amount"/>-->
+        <!--                        </group>-->
+        <!--                    </sheet>-->
+        <!--                </form>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <record id="cafe_tags_list" model="ir.ui.view">
+            <field name="name">cafe.tags.list</field>
+            <field name="model">cafe.tagz</field>
+            <field name="arch" type="xml">
+                <tree string="cafe_tags_list">
+                    <field name="tag_name" />
+                    <field name="tag_color" widget="color_picker" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="cafe_tags_form" model="ir.ui.view">
+            <field name="name">cafe.tags.form</field>
+            <field name="model">cafe.tagz</field>
+            <field name="arch" type="xml">
+                <form string="cafe_tags_form">
+                    <sheet>
+                        <group>
+                            <field name="tag_name" />
+                            <field name="tag_color" widget="color_picker" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

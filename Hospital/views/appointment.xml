@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hospital_appointment_view_tree" model="ir.ui.view">
+        <field name="name">hospital.patient.view.tree</field>
+        <field name="model">hospital.appointments</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="patient"></field>
+                <field name="start_date"></field>
+                <field name="end_date"></field>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hospital_appointment_view_calendar" model="ir.ui.view">
+        <field name="name">hospital_appointment.view.calendar</field>
+        <field name="model">hospital.appointments</field>
+        <field name="arch" type="xml">
+            <calendar string="Calendar" date_start="start_date" date_stop="end_date" mode="day" color="patient">
+                
+            </calendar>
+        </field>
+    </record>
+
+    <!-- <record id="hospital_appointment_view_graph" model="ir.ui.view">
+        <field name="name">hospital_appointment.view.graph</field>
+        <field name="model">hospital.appointments</field>
+        <field name="arch" type="xml">
+            <graph string="Graph" type="bar">
+                <field name="" />
+            </graph>
+        </field>
+    </record> -->
+
+</odoo>

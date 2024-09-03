@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_cafe_product" model="ir.actions.act_window">
+        <field name="name">Products</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cafe.products</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <!-- <field name="view_id" ref="cafe_products_form_2"></field> -->
+        <field name="context">{}</field>
+    </record>
+
+    <record id="action_cafe_sale" model="ir.actions.act_window">
+        <field name="name">Sales</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cafe.sales</field>
+        <field name="view_mode">tree,form,kanban,calendar,graph,pivot</field>
+        <field name="context">{'default_view': 'form'}</field>
+    </record>
+
+    <record id="action_cafe_tag" model="ir.actions.act_window">
+        <field name="name">Tags</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cafe.tagz</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

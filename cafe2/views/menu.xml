@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+        id="cafe2"
+        name="Cafe 2"
+        action='cafe2_action_product'
+        sequence="1" />
+
+    <menuitem
+        id="cafe2_tags"
+        name="Tags"
+        parent='cafe2'
+        action="cafe2_tags_action"
+        sequence="4" />
+
+    <menuitem
+        id="cafe2_filtered_products"
+        name="Filtered Products"
+        parent='cafe2'
+        sequence="1" />
+
+    <menuitem
+        id="cafe2_ols"
+        name="OL"
+        action="cafe2_ol"
+        parent='cafe2_new_menus'
+        sequence="5" />
+
+
+    <menuitem
+        id="cafe2_sales"
+        name="Sales"
+        action="cafe2_action_sales"
+        parent="cafe2"
+        sequence="2" />
+
+    <menuitem
+        id="cafe2_new_menus"
+        name="New Menus"
+        parent='cafe2'
+        sequence="3" />
+
+    <menuitem
+        id="cafe2_prod_attr"
+        name="Product Attribute"
+        action="cafe2_action_prod_attr"
+        parent="cafe2_new_menus"
+        sequence="1" />
+
+    <menuitem
+        id="cafe2_prod_attr_val"
+        name="Product Attribute Values"
+        action="cafe2_action_prod_attr_val"
+        parent="cafe2_new_menus"
+        sequence="2" />
+
+    <menuitem
+        id="cafe2_prod_variants"
+        name="Product Variants"
+        action="cafe2_action_prod_variants"
+        parent="cafe2_new_menus"
+        sequence="3" />
+
+    <menuitem
+        id="cafe2_prod_attrs"
+        name="Product Attributess"
+        action="cafe2_action_prod_attrs"
+        parent="cafe2_new_menus"
+        sequence="4" />
+
+    <menuitem
+        id="cafe2_c_pro"
+        name="Consumable Products"
+        parent='cafe2_filtered_products'
+        action='cafe2_action_consum_product'
+        sequence="1" />
+
+    <menuitem
+        id="cafe2_s_pro"
+        name="Stockable Products"
+        parent='cafe2_filtered_products'
+        action='cafe2_action_stock_product'
+        sequence="2" />
+
+    <menuitem
+        id="cafe2_sr_pro"
+        name="Service Products"
+        parent='cafe2_filtered_products'
+        action='cafe2_action_service_product'
+        sequence="3" />
+
+</odoo>

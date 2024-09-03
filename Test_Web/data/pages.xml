@@ -1,0 +1,23 @@
+<odoo>
+    <!-- Create a custom page for the main menu item -->
+    <data noupdate="1">
+    
+        <!-- <record id="website_page_custom_sale_create" model="website.page">
+            <field name="name">Custom Sale Page</field>
+            <field name="url">/create/sale</field>
+            <field name="website_id" ref="website.website_main"/>
+            <field name="arch" type="xml">
+                <template id="custom_main_page">
+                    <t t-call="website.layout">
+                        <div class="container">
+                            <h1>Welcome to the Custom Sale Page</h1>
+                        </div>
+                    </t>
+                </template>
+            </field>
+        </record> -->
+    
+    </data>
+    
+
+</odoo>

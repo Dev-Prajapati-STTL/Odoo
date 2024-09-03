@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="cafe2_products_list" model="ir.ui.view">
+        <field name="name">cafe2.product.list</field>
+        <field name="model">cafe.products</field>
+        <field name="inherit_id" ref="cafe.cafe_products_list" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='gpm']" position="after">
+                <field name="product_type" />
+            </xpath>
+
+            <xpath expr="//field[@name='tags']" position="after">
+                <button name="cafe2_action_create_variants" type="object" string='create variants'
+                    class='oe_highlight' />
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="cafe2_products_form" model="ir.ui.view">
+        <field name="name">cafe2.product.form</field>
+        <field name="model">cafe.products</field>
+        <field name="inherit_id" ref="cafe.cafe_products_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='gpm']" position="after">
+                <field name="product_type" />
+            </xpath>
+            <xpath expr="//field[@name='product_type']" position="attributes">
+                <attribute name="attrs">{'readonly': [('product_type', '!=', 'editable')]}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="cafe2_sales_inherited" model="ir.ui.view">
+        <field name="name">cafe2.sales.inherited</field>
+        <field name="model">cafe.sales</field>
+        <field name="inherit_id" ref="cafe.cafe_sales_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//sheet" position="after">
+                <div class="oe_chatter">
+                    <field name="message_ids" options="{'post_refresh':'recipients'}" />
+                    <field name="message_follower_ids"/>
+                </div>
+            </xpath>
+
+            <xpath expr="//header" position="inside">
+                <button name="rvrt_to_draft" type="object" string="Revert" states="canceled"
+                    class="oe_highlight" />
+            </xpath>
+
+            <xpath expr="//header/button[@name='action_draft']" position="replace">
+            </xpath>
+
+            <xpath expr="//header/button[@name='action_confirm'] | //header/button[@name='action_cancel']" position="attributes">
+                <attribute name="states">rvrt,draft</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- <record id="cafe2_variants_view_form" model="ir.ui.view">
+        <field name="name">cafe2.variants.view.form</field>
+        <field name="model">cafe2.product.variant</field>
+        <field name="arch" type="xml">
+            <form string="cafe2_variants_view_form" create='0'>
+                <sheet>
+                    <group>
+                        <field name="products_id"/>
+                        <field name="attribute_value_ids"/>
+                        <field name="price"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record> -->
+
+    <record id="cafe2_variants_view_tree" model="ir.ui.view">
+        <field name="name">cafe2.variants.view.tree</field>
+        <field name="model">cafe2.product.variant</field>
+        <field name="arch" type="xml">
+            <tree string="cafe2_variants_view_tree" create='0'>
+                <field name="products_id" />
+                <field name="attribute_value_ids" widget='many2many_tags' />
+                <field name="price" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="cafe2_tags_view_tree" model="ir.ui.view">
+        <field name="name">cafe2_tags.view.tree</field>
+        <field name="model">cafe.tagz</field>
+        <field name="arch" type="xml">
+            <tree string="Tags">
+                <field name="tag_name" />
+                <field name="tag_color" />
+                <field name="cost_price" optional="hide" />
+                <field name="sale_price" optional="hide" />
+                <field name="gpm" optional="hide" />
+                <field name="taxes" widget="many2many_tags" />
+                <field name="note" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="cafe2_tags_inherited_tree" model="ir.ui.view">
+        <field name="name">cafe2.tags.inherited.tree</field>
+        <field name="model">cafe.tagz</field>
+        <field name="inherit_id" ref="cafe.cafe_tags_list" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_color']" position="after">
+                <field name="cost_price" />
+                <field name="gpm" />
+                <field name="taxes" widget="many2many_tags" />
+                <field name="note" />
+            </xpath>
+            <xpath expr="//field[@name='tag_color']" position="replace">
+                <field name="sale_price" />
+            </xpath>
+            <xpath expr="//field[@name='taxes']" position="attributes">
+                <attribute name="optional" value="hide">hide</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="cafe2_tags_inherited_form" model="ir.ui.view">
+        <field name="name">cafe2.tags.inherited.form</field>
+        <field name="model">cafe.tagz</field>
+        <field name="inherit_id" ref="cafe.cafe_tags_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_color']" position="before">
+                <field name="taxes" widget="many2many_tags" />
+            </xpath>
+            <xpath expr="//field[@name='tag_color']" position="after">
+                <field name="cost_price" />
+                <field name="gpm" />
+                <field name="note" />
+            </xpath>
+            <xpath expr="//field[@name='tag_color']" position="replace">
+                <field name="sale_price" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

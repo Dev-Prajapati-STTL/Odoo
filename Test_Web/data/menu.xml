@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+    
+        <record id="menu_create_sale" model="website.menu">
+            <field name="name">Create</field>
+            <field name="url">/create/sale</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <!-- <field name="website_id" ref="website.website_main"/> -->
+        </record>
+
+        <record id="menu_create_user" model="website.menu">
+            <field name="name">Sign Up</field>
+            <field name="url">/create/user</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <!-- <field name="website_id" ref="website.website_main"/> -->
+        </record>
+    
+    </data>
+    
+
+</odoo>

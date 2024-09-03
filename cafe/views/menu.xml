@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="cafe" name="Cafe" sequence="1"/>
+        <menuitem id="cafe_products" name="Cafe Products" action="action_cafe_product" parent="cafe" sequence="1"/>
+        <menuitem id="cafe_sales" name="Cafe Sales" action="action_cafe_sale" parent="cafe" sequence="2"/>
+        <menuitem id="cafe_tags" name="Cafe Tags" action="action_cafe_tag" parent="cafe" sequence="3"/>
+    </data>
+</odoo>

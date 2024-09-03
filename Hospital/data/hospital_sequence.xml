@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hospital_sequence" model="ir.sequence">
+        <field name="name">hospital.sequence.number</field>
+        <field name="code">hospital.sequence.number</field>
+        <field name="prefix">HOS</field>
+        <field name="padding">4</field>
+    </record>
+</odoo>

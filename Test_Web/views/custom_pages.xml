@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="custom_website_create_product" name="Products">
+        <t t-call="website.layout">
+            <div>
+                <div id="wrap">
+                    <div class="container">
+                        <h1 class="my-3">
+                            Create Product Here...
+                        </h1>
+                        <form role="form" method="post" action="/done_product" class="w-50">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="form_group">
+                                <label for="product_name" class="control-label my-2">Product Name</label>
+                                <input type="text" name="product_name" t-att-value="product_name" class="form-control" required='True'/>
+                            </div>
+                            <div class="form_group">
+                                <label for="cost_price" class="control-label my-2">Cost Price</label>
+                                <input type="number" name="cost_price" t-att-value="cost_price" class="form-control" required='True'/>
+                            </div>
+                            <div class="form_group">
+                                <label for="sale_price" class="control-label my-2">Sale Price</label>
+                                <input type="number" name="sale_price" t-att-value="sale_price" class="form-control" required='True'/>
+                            </div>
+                            <button type='submit' class="btn btn-primary mt-3">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="product_thank_you" name="product_creation_done">
+        <t t-call="website.layout">
+            <div class="w-75 h-50 mx-auto mt-5">
+                <h1 class="alert alert-success">
+                    Product Created Successfully!!
+                </h1>
+                <a href="/shop" class="btn btn-primary inline-block">See Products!</a>
+            </div>
+        </t>
+    </template>
+
+    <template id="custom_website_create_ticket" name="Tickets">
+        <t t-call="website.layout">
+            <div>
+                <div id="wrap">
+                    <div class="container">
+                        <h1 class="my-3">
+                            Raise Enquiry Here...
+                        </h1>
+                        <form role="form" method="post" action="/done_ticket" class="w-50">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="form_group">
+                                <label for="name" class="control-label my-2">Name</label>
+                                <input type="text" name="name" t-att-value="name" class="form-control" required='True'/>
+                            </div>
+                            <div class="form_group">
+                                <label for="phone" class="control-label my-2">Phone</label>
+                                <input type="number" name="phone" t-att-value="phone" class="form-control" required='True'/>
+                            </div>
+                            <div class="form_group">
+                                <label for="email" class="control-label my-2">Email</label>
+                                <input type="email" name="email" t-att-value="email" class="form-control" required='True'/>
+                            </div>
+                            <button type='submit' class="btn btn-primary mt-3">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="ticket_thank_you" name="ticket_creation_done">
+        <t t-call="website.layout">
+            <div class="w-75 h-50 mx-auto mt-5">
+                <h1 class="alert alert-success">
+                    Ticket Created Successfully!!
+                </h1>
+                <a href="/shop" class="btn btn-primary inline-block">See Products!</a>
+            </div>
+        </t>
+    </template>
+
+    <template id="custom_website_create_user" name="Users">
+        <t t-call="website.layout">
+            <div>
+                <div id="wrap">
+                    <div class="container">
+                        <h1 class="my-3">
+                            Sign Up...
+                        </h1>
+                        <form role="form" method="post" action="/done_user" class="w-50">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="form_group">
+                                <label for="product_name" class="control-label my-2">Product Name</label>
+                                <input type="text" name="product_name" t-att-value="product_name" class="form-control" required='True'/>
+                            </div>
+                            <div class="form_group">
+                                <label for="cost_price" class="control-label my-2">Cost Price</label>
+                                <input type="number" name="cost_price" t-att-value="cost_price" class="form-control" required='True'/>
+                            </div>
+                            <div class="form_group">
+                                <label for="sale_price" class="control-label my-2">Sale Price</label>
+                                <input type="number" name="sale_price" t-att-value="sale_price" class="form-control" required='True'/>
+                            </div>
+                            <button type='submit' class="btn btn-primary mt-3">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

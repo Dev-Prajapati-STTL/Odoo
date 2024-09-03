@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cafe_products_action_report" model="ir.actions.report">
+        <field name="name">Cafe Products Report</field>
+        <field name="model">cafe.products</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cafe.cafe_product_report</field> 
+        <field name="report_file">cafe.cafe_product_report</field>
+        <field name="print_report_name">'%s' % object.product_name</field>
+        <field name="binding_model_id" ref="model_cafe_products"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="cafe_sales_action_report" model="ir.actions.report">
+        <field name="name">Cafe Sales Report</field>
+        <field name="model">cafe.sales</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">cafe.cafe_sale_report</field> 
+        <field name="report_file">cafe.cafe_sale_report</field>
+        <field name="print_report_name">'%s' % object.customer_id.name</field>
+        <field name="binding_model_id" ref="model_cafe_sales"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
